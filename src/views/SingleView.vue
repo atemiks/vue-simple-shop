@@ -79,13 +79,13 @@ export default {
     methods: {
         ...mapActions(['fetchProducts', 'addToCart']),
         async getProductData() {
-            const cartItemQuantity = this.CART.find(
-                (item) => item.id === this.product.id
-            )?.quantity;
-
             this.product = this.PRODUCTS.find(
                 (item) => item.link === this.productLink
             );
+
+            const cartItemQuantity = this.CART.find(
+                (item) => item.id === this.product.id
+            )?.quantity;
 
             this.product.quantity = cartItemQuantity ? cartItemQuantity : 1;
 
