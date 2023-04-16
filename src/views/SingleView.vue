@@ -20,7 +20,7 @@
 
                     <div class="product-order">
                         <v-counter
-                            :quantity_data="this.product.quantity"
+                            :quantity_data="productQuantity"
                             @changeCounter="changeCounter"
                         ></v-counter>
                         <div class="product-actions">
@@ -72,6 +72,21 @@ export default {
     },
     computed: {
         ...mapGetters(['PRODUCTS', 'CART']),
+        productQuantity() {
+            const cartItem = this.CART.find(
+                (item) => item.id === this.product.id
+            );
+            const cartItemQuantity = cartItem ? cartItem.quantity : 1;
+
+            console.log(
+                'productQuantity',
+                this.CART,
+                cartItem,
+                cartItemQuantity
+            );
+
+            return cartItemQuantity;
+        },
         inCart() {
             return inCart(this.product.id, this.CART);
         },

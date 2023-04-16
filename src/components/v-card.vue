@@ -1,13 +1,20 @@
 <template>
     <div class="card">
-        <figure class="card-thumbnail">
+        <router-link
+            class="card-thumbnail"
+            :to="{
+                name: 'single',
+                params: { productLink: product.link },
+            }"
+        >
             <img
                 loading="lazy"
                 :src="product.image"
                 :alt="product.title"
                 class="card-media"
             />
-        </figure>
+        </router-link>
+
         <router-link
             class="card-title"
             :to="{

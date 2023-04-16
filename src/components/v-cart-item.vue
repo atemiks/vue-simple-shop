@@ -1,16 +1,30 @@
 <template>
     <div class="cart-item">
-        <figure class="cart-item-thumbnail">
+        <router-link
+            class="cart-item-thumbnail"
+            :to="{
+                name: 'single',
+                params: { productLink: product.link },
+            }"
+        >
             <img
                 loading="lazy"
                 :src="product.image"
                 :alt="product.title"
                 class="cart-item-media"
             />
-        </figure>
+        </router-link>
 
         <div class="cart-item-summary">
-            <a href="#link" class="cart-item-title">{{ product.title }}</a>
+            <router-link
+                class="cart-item-title"
+                :to="{
+                    name: 'single',
+                    params: { productLink: product.link },
+                }"
+            >
+                {{ product.title }}
+            </router-link>
         </div>
 
         <div class="cart-item-cost">
