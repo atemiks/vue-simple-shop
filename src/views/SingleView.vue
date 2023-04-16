@@ -20,7 +20,7 @@
 
                     <div class="product-order">
                         <v-counter
-                            :quantity_data="productQuantity"
+                            :quantity_data="product.quantity"
                             @changeCounter="changeCounter"
                         ></v-counter>
                         <div class="product-actions">
@@ -72,21 +72,6 @@ export default {
     },
     computed: {
         ...mapGetters(['PRODUCTS', 'CART']),
-        productQuantity() {
-            const cartItem = this.CART.find(
-                (item) => item.id === this.product.id
-            );
-            const cartItemQuantity = cartItem ? cartItem.quantity : 1;
-
-            console.log(
-                'productQuantity',
-                this.CART,
-                cartItem,
-                cartItemQuantity
-            );
-
-            return cartItemQuantity;
-        },
         inCart() {
             return inCart(this.product.id, this.CART);
         },
@@ -94,9 +79,15 @@ export default {
     methods: {
         ...mapActions(['fetchProducts', 'addToCart']),
         async getProductData() {
+            const cartItemQuantity = this.CART.find(
+                (item) => item.id === this.product.id
+            )?.quantity;
+
             this.product = this.PRODUCTS.find(
                 (item) => item.link === this.productLink
             );
+
+            this.product.quantity = cartItemQuantity ? cartItemQuantity : 1;
 
             if (!this.product) {
                 this.$router.push({ name: 'home' });

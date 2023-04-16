@@ -40,6 +40,9 @@ export default {
         inputChange() {},
     },
     watch: {
+        quantity_data: function (newQuantityData) {
+            this.quantity = newQuantityData;
+        },
         quantity() {
             this.$emit('changeCounter', this.quantity);
         },
